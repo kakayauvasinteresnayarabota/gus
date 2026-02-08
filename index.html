@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Гусь в яблоках × Сыроварня — презентация</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100%;
+  height:100%;
+  background:#000;
+  overflow:hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* SLIDES */
+.slider {
+  width:100%;
+  height:100%;
+  position:relative;
+}
+
+.slide {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity 0.6s ease;
+}
+
+.slide.active {
+  opacity:1;
+  z-index:1;
+}
+
+.slide img,
+.slide video {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* TEXT OVERLAY */
+.caption {
+  position:absolute;
+  left:5%;
+  bottom:6%;
+  max-width:420px;
+  font-size:14px;
+  line-height:1.6;
+  letter-spacing:0.04em;
+  color:rgba(255,255,255,0.78);
+  background:rgba(0,0,0,0.25);
+  padding:14px 18px;
+  backdrop-filter: blur(6px);
+}
+
+/* MOBILE */
+@media (max-width:768px) {
+  .caption {
+    font-size:12px;
+    max-width:80%;
+    padding:12px 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="slider">
+
+  <div class="slide active">
+    <img src="s0.jpg">
+    <div class="caption">Точка притяжения</div>
+  </div>
+
+  <div class="slide">
+    <img src="s1.jpg">
+    <div class="caption">Он знает, куда пришёл</div>
+  </div>
+
+  <div class="slide">
+    <img src="s2.png">
+    <div class="caption">Проба</div>
+  </div>
+
+  <div class="slide">
+    <img src="s3.jpg">
+    <div class="caption">Пауза</div>
+  </div>
+
+  <div class="slide">
+    <img src="s4.jpg">
+    <div class="caption">Оценка</div>
+  </div>
+
+  <div class="slide">
+    <img src="s5.jpg">
+    <div class="caption">Не подходит</div>
+  </div>
+
+  <div class="slide">
+    <img src="s6.jpg">
+    <div class="caption">Решение принято</div>
+  </div>
+
+  <div class="slide">
+    <img src="s7.png">
+    <div class="caption">Настоящий выбор</div>
+  </div>
+
+  <div class="slide">
+    <img src="s8.jpg">
+    <div class="caption">Яблоко вместо компромиссов</div>
+  </div>
+
+  <div class="slide">
+    <img src="s9.jpg">
+    <div class="caption">Уверенность</div>
+  </div>
+
+  <div class="slide">
+    <img src="s10.jpg">
+    <div class="caption">Передай дальше</div>
+  </div>
+
+  <div class="slide">
+    <img src="s11.jpg">
+    <div class="caption">Возврат к источнику</div>
+  </div>
+
+  <div class="slide">
+    <video src="видео_для_презы_Гусь.mp4" autoplay muted playsinline></video>
+    <div class="caption">История замыкается</div>
+  </div>
+
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let index = 0;
+
+function showSlide(i) {
+  slides[index].classList.remove('active');
+  index = (i + slides.length) % slides.length;
+  slides[index].classList.add('active');
+}
+
+// keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') showSlide(index + 1);
+  if (e.key === 'ArrowLeft') showSlide(index - 1);
+});
+
+// click
+document.addEventListener('click', () => showSlide(index + 1));
+
+// touch
+let startX = 0;
+document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - startX;
+  if (dx < -50) showSlide(index + 1);
+  if (dx > 50) showSlide(index - 1);
+});
+</script>
+
+</body>
+</html>
