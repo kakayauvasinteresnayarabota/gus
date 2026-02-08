@@ -110,7 +110,7 @@ html, body {
   </div>
 
   <div class="slide">
-    <img src="s7.png">
+    <img src="s7.jpg">
     <div class="caption">Настоящий выбор</div>
   </div>
 
@@ -135,7 +135,7 @@ html, body {
   </div>
 
   <div class="slide">
-    <video src="видео_для_презы_Гусь.mp4" autoplay muted playsinline></video>
+    <video src="video1.mp4" autoplay muted playsinline loop></video>
     <div class="caption">История замыкается</div>
   </div>
 
@@ -149,6 +149,18 @@ function showSlide(i) {
   slides[index].classList.remove('active');
   index = (i + slides.length) % slides.length;
   slides[index].classList.add('active');
+
+  const activeVideo = slides[index].querySelector('video');
+  document.querySelectorAll('.slide video').forEach(video => {
+    if (video !== activeVideo) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  });
+
+  if (activeVideo) {
+    activeVideo.play().catch(() => {});
+  }
 }
 
 // keyboard
