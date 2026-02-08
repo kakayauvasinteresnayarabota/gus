@@ -37,6 +37,40 @@ html, body {
   z-index:1;
 }
 
+/* NAVIGATION CONTROLS */
+.controls {
+  position:absolute;
+  left:50%;
+  bottom:4%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:18px;
+  z-index:3;
+}
+
+.nav-btn {
+  width:0;
+  height:0;
+  border-top:14px solid transparent;
+  border-bottom:14px solid transparent;
+  background:transparent;
+  opacity:0.45;
+  cursor:pointer;
+  transition:opacity 0.25s ease;
+}
+
+.nav-btn:hover {
+  opacity:0.9;
+}
+
+.nav-prev {
+  border-right:22px solid rgba(255,255,255,0.85);
+}
+
+.nav-next {
+  border-left:22px solid rgba(255,255,255,0.85);
+}
+
 .slide img,
 .slide video {
   width:100%;
@@ -134,9 +168,17 @@ html, body {
     <div class="caption">История замыкается</div>
   </div>
 
+
+  <!-- Кнопки навигации поверх слайда: влево / вправо -->
+  <div class="controls">
+    <button class="nav-btn nav-prev" type="button" aria-label="Предыдущий слайд"></button>
+    <button class="nav-btn nav-next" type="button" aria-label="Следующий слайд"></button>
+  </div>
+
 </div>
 
 <script>
+// Получаем все слайды и текущее положение в слайдере
 const slides = document.querySelectorAll('.slide');
 let index = 0;
 
@@ -157,6 +199,20 @@ function showSlide(i) {
     activeVideo.play().catch(() => {});
   }
 }
+
+// Кнопки управления слайдами
+const prevBtn = document.querySelector('.nav-prev');
+const nextBtn = document.querySelector('.nav-next');
+
+prevBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  showSlide(index - 1);
+});
+
+nextBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  showSlide(index + 1);
+});
 
 // keyboard
 document.addEventListener('keydown', e => {
